@@ -56,15 +56,15 @@ export default function TextForm(props) {
                 <div className="mb-3">
                     <textarea className="form-control" id="myBox" rows="3" value={text} onChange={handelOnChange}></textarea>
                 </div>
-                <button className="btn btn-primary mx-2 my-2" onClick={handelUpClick}>Convert to Uppercase</button>
-                <button className="btn btn-primary mx-2 my-2" onClick={handelDownClick}>Convert to Lowercase</button>
-                <button className="btn btn-primary mx-2 my-2" onClick={handelClearClick}>Clear</button>
-                <button className="btn btn-primary mx-2 my-2" onClick={handleCopyClick}>Copy Text</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handelUpClick}>Convert to Uppercase</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handelDownClick}>Convert to Lowercase</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handelClearClick}>Clear</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleCopyClick}>Copy Text</button>
             </div>
             <div className={`text-${props.state===false? "dark":"light"}`}>
                 <h2>Your text summary</h2>
-                <p>There are <b>{text.split(" ").length}</b> words and <b>{text.length}</b> characters.</p>
-                <p><b>{0.008 * text.split(" ").length}</b> Minutes read</p>
+                <p>There are <b>{text.split(/\s+/).filter((element) => {return element.length !== 0}).length}</b> words and <b>{text.length}</b> characters.</p>
+                <p><b>{0.008 * text.split(" ").filter((element) => {return element.length !== 0}).length}</b> Minutes read</p>
                 <p> {text} </p>
             </div>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
